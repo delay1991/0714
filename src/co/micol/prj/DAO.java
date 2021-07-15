@@ -23,7 +23,7 @@ public class DAO {
 		}
 	}
 
-	public MemberVO memberSelect1(MemberVO vo) {
+	public MemberVO memberSelect(MemberVO vo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
