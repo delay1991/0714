@@ -1,5 +1,8 @@
 package co.micol.prj.app;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,26 +62,75 @@ public class Menu {
 		}
 	}
 
-	private void memberDelete() {
-		// TODO Auto-generated method stub
-
+	private void memberUpdate() {
+		// 데이터수정
+		MemberVO vo = new MemberVO(); 
+		System.out.println("변경할 ID입력: ");
+		vo.setId(sc.next());sc.nextLine();
+		System.out.println("변경할 주소입력: ");
+		vo.setAddress(sc.next());sc.nextLine();
+		System.out.println("변결할 전화번호: ");
+		vo.setTel(sc.next());sc.nextLine();
+		System.out.println("변경할 이름: ");
+		vo.setName(sc.next());sc.nextLine();
+		int n = dao.memberUpdate(vo);
+		if (n != 0) {
+			System.out.println("정상변경");
+		} else {
+			System.out.println("변경실패");
+		}
+		
 	}
 
-	private void memberUpdate() {
-		// TODO Auto-generated method stub
-
+	private void memberDelete() {
+		// 데이터삭제
+		MemberVO vo = new MemberVO(); 
+		System.out.println("삭제할 ID입력: ");
+		vo.setId(sc.next());sc.nextLine();
+		int n = dao.memberDelete(vo);
+		if (n != 0) {
+			System.out.println("정상삭제");
+		} else {
+			System.out.println("삭제실패");
+		}
+		
 	}
 
 	private void memberInsert() {
-		// TODO Auto-generated method stub
+		// 한명 데이터 삽입
+		MemberVO vo = new MemberVO(); // 컨트롤스페이스 적극활용
+		System.out.print("ID입력: ");
+		vo.setId(sc.next());
+		sc.nextLine(); // 버퍼의 캐리지리턴값지우기
+		System.out.print("PASSWORD입력: ");
+		vo.setPassword(sc.next());
+		sc.nextLine();
+		System.out.print("이름입력: ");
+		vo.setName(sc.next());
+		sc.nextLine();
+		System.out.print("주소입력: ");
+		vo.setAddress(sc.next());
+		sc.nextLine();
+		System.out.println("전화번호입력: ");
+		vo.setTel(sc.next());
+		sc.nextLine();
+		System.out.println("나이입력: ");
+		vo.setAge(sc.nextInt());
 
+		int n = dao.memberInsert(vo);
+		if (n != 0) {
+			System.out.println("정상입력");
+		} else {
+			System.out.println("입력실패");
+		}
 	}
 
 	private void memberSelect() {
 		// 한명 데이터 조회
 		MemberVO vo = new MemberVO();
 		System.out.println("검색할 ID를 입력하세요.");
-		vo.setId(sc.next()); sc.nextLine();
+		vo.setId(sc.next());
+		sc.nextLine();
 		vo = dao.memberSelect(vo);
 		vo.toString();
 	}
@@ -92,6 +144,7 @@ public class Menu {
 		}
 
 	}
+
 	public void run() {
 		mainMenu();
 		sc.close();
